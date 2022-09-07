@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import RegisterForm from "./RegisterForm";
 import axios from "axios";
 
 export default function LoginForm(props) {
@@ -13,10 +12,14 @@ export default function LoginForm(props) {
 
 		axios
 			.post("https://wassup-backend.herokuapp.com/api/v1/auth/login", {
-				email: formState.username,
+				email: formState.email,
 				password: formState.password,
 			})
-			.then((res) => console.log(res))
+			.then((res) => {
+				console.log(res);
+				const token = res.data.token;
+				localStorage.setItem("token", token);
+			})
 			.catch((err) => {
 				console.log(err);
 			});
@@ -38,7 +41,7 @@ export default function LoginForm(props) {
 							setFormState({ ...formState, email: e.target.value })
 						}></input>
 					<input
-						name="username"
+						name="email"
 						type="password"
 						placeholder="Password"
 						value={formState.password}

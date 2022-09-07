@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import LoginForm from "./LoginForm";
 import axios from "axios";
 
 export default function RegisterForm(props) {
 	const [isUser, setIsUser] = useState({ username: "", password: "" });
 
 	const [formState, setFormState] = useState({
-		username: "",
+		email: "",
 		name: "",
 		password: "",
 	});
@@ -16,7 +15,7 @@ export default function RegisterForm(props) {
 		event.preventDefault();
 		axios
 			.post("https://wassup-backend.herokuapp.com/api/v1/auth/signup", {
-				email: formState.username,
+				email: formState.email,
 				name: formState.name,
 				password: formState.password,
 			})
